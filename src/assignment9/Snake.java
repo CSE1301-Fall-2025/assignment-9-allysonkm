@@ -51,6 +51,9 @@ public class Snake {
 			double tempY = segments.get(i).getY();
 
 			segments.get(i).setPosition(tempX + deltaX, tempY + deltaY);
+
+			prevX = tempX;
+			prevY = tempY;
 		}
 	}
 	
@@ -82,8 +85,8 @@ public class Snake {
 	 * @return whether or not the head is in the bounds of the window
 	 */
 	public boolean isInbounds() {
-		if (segments.get(0).getX() > 0 && segments.get(0).getX() < 1) {
-			if (segments.get(0).getY() > 0 && segments.get(0).getY() < 1) {
+		if (segments.get(0).getX() >= 0 && segments.get(0).getX() <= 1) {
+			if (segments.get(0).getY() >= 0 && segments.get(0).getY() <= 1) {
 				return true;
 			} else {
 				return false;

@@ -63,7 +63,7 @@ public class Game {
 		this.snake.draw();
 		this.apple.draw();
 
-		StdDraw.pause(50);
+		StdDraw.pause(100);
 		StdDraw.show();
 	}
 	
