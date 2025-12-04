@@ -14,6 +14,9 @@ public class Snake {
 		//FIXME - set up the segments instance variable
 		deltaX = 0;
 		deltaY = 0;
+		this.segments = new LinkedList<>();
+		BodySegment head = new BodySegment(0.2, 0.2, 0.02);
+		this.segments.add(head);
 	}
 	
 	public void changeDirection(int direction) {
@@ -31,20 +34,33 @@ public class Snake {
 			deltaX = MOVEMENT_SIZE;
 		}
 	}
+
 	
 	/**
 	 * Moves the snake by updating the position of each of the segments
 	 * based on the current direction of travel
 	 */
 	public void move() {
-		//FIXME
+		double prevX = segments.get(0).getX();
+		double prevY = segments.get(0).getY();
+
+		segments.get(0).setPosition(prevX + deltaX, prevY + deltaY);
+
+		for (int i = 1; i < segments.size(); i++) {
+			double tempX = segments.get(i).getX();
+			double tempY = segments.get(i).getY();
+
+			segments.get(i).setPosition(tempX + deltaX, tempY + deltaY);
+		}
 	}
 	
 	/**
 	 * Draws the snake by drawing each segment
 	 */
 	public void draw() {
-		//FIXME
+		for (int i = 0; i < this.segments.size(); i++) {
+			this.segments.get(i).draw();
+		}
 	}
 	
 	/**
@@ -53,8 +69,12 @@ public class Snake {
 	 * @return true if the snake successfully ate the food
 	 */
 	public boolean eatFood(Food f) {
-		//FIXME
-		return false;
+		if (segments.get(0).getX() == f.getX() && segments.get(0).getY() == f.getY()) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	/**
@@ -62,7 +82,14 @@ public class Snake {
 	 * @return whether or not the head is in the bounds of the window
 	 */
 	public boolean isInbounds() {
-		//FIXME
-		return true;
+		if (segments.get(0).getX() > 0 && segments.get(0).getX() < 1) {
+			if (segments.get(0).getY() > 0 && segments.get(0).getY() < 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 }
